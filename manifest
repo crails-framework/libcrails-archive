@@ -1,0 +1,12 @@
+: 1
+name: libcrails-archive
+version: 2.0.0
+summary: crails-archive C++ library
+license: other: BSD-3-Clause
+description-file: README.md
+url: https://example.org/libcrails-archive
+email: michael@unetresgrossebite.com
+depends: * build2 >= 0.15.0
+depends: * bpkg >= 0.15.0
+depends: { libcrails } ^2.0.0
+depends: libtext-archive ^2.0.0

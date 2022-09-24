@@ -1,0 +1,33 @@
+import intf_libs += libcrails%lib{crails}
+import intf_libs += libtext-archive%lib{text-archive}
+
+lib{crails-archive}: {hxx ixx txx cxx}{**} $impl_libs $intf_libs
+
+hxx{version}: in{version} $src_root/manifest
+
+hxx{export}@./: cxx.importable = false
+
+cxx.poptions =+ "-I$out_root" "-I$src_root"
+
+{hbmia obja}{*}: cxx.poptions += -DLIBCRAILS_ARCHIVE_STATIC_BUILD
+{hbmis objs}{*}: cxx.poptions += -DLIBCRAILS_ARCHIVE_SHARED_BUILD
+
+lib{crails-archive}:
+{
+  cxx.export.poptions = "-I$out_root" "-I$src_root"
+  cxx.export.libs = $intf_libs
+}
+
+liba{crails-archive}: cxx.export.poptions += -DLIBCRAILS_ARCHIVE_STATIC
+libs{crails-archive}: cxx.export.poptions += -DLIBCRAILS_ARCHIVE_SHARED
+
+if $version.pre_release
+  lib{crails-archive}: bin.lib.version = "-$version.project_id"
+else
+  lib{crails-archive}: bin.lib.version = "-$version.major.$version.minor"
+
+{hxx ixx txx}{*}:
+{
+  install         = include/
+  install.subdirs = true
+}
