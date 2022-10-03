@@ -1,9 +1,18 @@
 #include <libtext-archive/archive.hpp>
 #include <crails/context.hpp>
+#include <crails/environment.hpp>
+#include <crails/logger.hpp>
 #include "archive_parser.hpp"
 
 using namespace std;
 using namespace Crails;
+
+static void display_debug_data(const string& body)
+{
+  IArchive archive;
+  archive.set_data(body);
+  logger << Logger::Debug << "Received archive:\n" << archive.description() << Logger::endl;
+}
 
 void RequestArchiveParser::operator()(Context& context, function<void(RequestParser::Status)> callback) const
 {
@@ -24,5 +33,9 @@ void RequestArchiveParser::operator()(Context& context, function<void(RequestPar
 void RequestArchiveParser::body_received(Context& context, const string& body) const
 {
   if (body.size() > 0)
+  {
     context.params[parameter_key] = body;
+    if (Crails::environment != Crails::Production)
+      display_debug_data(body);
+  }
 }

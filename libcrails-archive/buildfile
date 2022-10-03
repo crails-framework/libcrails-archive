@@ -1,4 +1,5 @@
 import intf_libs += libcrails%lib{crails}
+import intf_libs += libcrails-logger%lib{crails-logger}
 import intf_libs += libtext-archive%lib{text-archive}
 
 lib{crails-archive}: {hxx ixx txx cxx}{**} $impl_libs $intf_libs
