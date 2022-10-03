@@ -24,6 +24,5 @@ void RequestArchiveParser::operator()(Context& context, function<void(RequestPar
 void RequestArchiveParser::body_received(Context& context, const string& body) const
 {
   if (body.size() > 0)
-    context.params["_archive_data"] = body;
+    context.params[parameter_key] = body;
 }
-
