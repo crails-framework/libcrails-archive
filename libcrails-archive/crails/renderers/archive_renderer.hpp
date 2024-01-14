@@ -10,8 +10,9 @@ namespace Crails
   public:
     ArchiveRenderer();
 
-    bool can_render(const std::string& accept_header, const std::string& view) const;
-    void render_template(const std::string& view, RenderTarget& response, SharedVars& vars) const;
+    const std::vector<std::string>& get_mimetypes() const override;
+    bool can_render(const std::string& view) const override;
+    void render_template(const std::string& view, RenderTarget& response, SharedVars& vars) const override;
   };
 }
 

@@ -2,12 +2,18 @@
 #include "archive_renderer.hpp"
 
 using namespace Crails;
+using namespace std;
 
-bool ArchiveRenderer::can_render(const std::string& accept_header, const std::string& view) const
+static const vector<string> mimetypes{Archive::mimetype};
+
+const vector<string>& ArchiveRenderer::get_mimetypes() const
 {
-  if (accept_header.find(Archive::mimetype) != std::string::npos)
-    return templates.find(view) != templates.end();
-  return false;
+  return mimetypes;
+}
+
+bool ArchiveRenderer::can_render(const std::string& view) const
+{
+  return templates.find(view) != templates.end();
 }
 
 void ArchiveRenderer::render_template(const std::string& view, RenderTarget& response, SharedVars& vars) const
