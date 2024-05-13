@@ -10,6 +10,7 @@ namespace Crails
   public:
     ArchiveRenderer();
 
+    std::string_view get_name() const override { return "crails/text-archive"; }
     const std::vector<std::string>& get_mimetypes() const override;
     bool can_render(const std::string& view) const override;
     void render_template(const std::string& view, RenderTarget& response, SharedVars& vars) const override;
